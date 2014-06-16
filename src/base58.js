@@ -6,7 +6,7 @@
 // Copyright (c) 2013 BitPay Inc
 
 var assert = require('assert')
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 
 var ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 var ALPHABET_BUF = new Buffer(ALPHABET, 'ascii')

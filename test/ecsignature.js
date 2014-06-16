@@ -1,6 +1,6 @@
 var assert = require('assert')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECSignature = require('../src/ecsignature')
 
 var fixtures = require('./fixtures/ecsignature.json')

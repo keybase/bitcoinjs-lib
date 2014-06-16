@@ -1,10 +1,10 @@
 var assert = require('assert')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 
 function ECSignature(r, s) {
-  assert(r instanceof BigInteger, 'Expected BigInteger, got ' + r)
-  assert(s instanceof BigInteger, 'Expected BigInteger, got ' + s)
+  //assert(r instanceof BigInteger, 'Expected BigInteger, got ' + r)
+  //assert(s instanceof BigInteger, 'Expected BigInteger, got ' + s)
   this.r = r
   this.s = s
 }
@@ -89,7 +89,8 @@ ECSignature.prototype.toDER = function() {
   sequence.unshift(sequence.length)
   sequence.unshift(0x30) // SEQUENCE
 
-  return new Buffer(sequence)
+  ret = new Buffer(sequence)
+  return ret;
 }
 
 ECSignature.prototype.toScriptSignature = function(hashType) {

@@ -1,9 +1,9 @@
 var assert = require('assert')
 var crypto = require('./crypto')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECSignature = require('./ecsignature')
-var Point = require('ecurve').Point
+var Point = require('keybase-ecurve').Point
 
 function deterministicGenerateK(curve, hash, d) {
   assert(Buffer.isBuffer(hash), 'Hash must be a Buffer, not ' + hash)

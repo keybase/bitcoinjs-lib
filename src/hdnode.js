@@ -3,11 +3,11 @@ var base58check = require('./base58check')
 var crypto = require('./crypto')
 var networks = require('./networks')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECKey = require('./eckey')
 var ECPubKey = require('./ecpubkey')
 
-var ecurve = require('ecurve')
+var ecurve = require('keybase-ecurve')
 var curve = ecurve.getCurveByName('secp256k1')
 
 function findBIP32ParamsByVersion(version) {

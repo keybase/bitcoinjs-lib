@@ -2,7 +2,7 @@ var assert = require('assert')
 var crypto = require('../src/crypto')
 var networks = require('../src/networks')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECKey = require('../src/eckey')
 
 var fixtures = require('./fixtures/eckey.json')

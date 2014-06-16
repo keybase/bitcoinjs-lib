@@ -1,6 +1,6 @@
 /// Implements Bitcoin's feature for signing arbitrary messages.
 var Address = require('./address')
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var bufferutils = require('./bufferutils')
 var crypto = require('./crypto')
 var ecdsa = require('./ecdsa')
@@ -10,7 +10,7 @@ var Address = require('./address')
 var ECPubKey = require('./ecpubkey')
 var ECSignature = require('./ecsignature')
 
-var ecurve = require('ecurve')
+var ecurve = require('keybase-ecurve')
 var ecparams = ecurve.getCurveByName('secp256k1')
 
 function magicHash(message, network) {

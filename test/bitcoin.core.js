@@ -4,7 +4,7 @@ var base58check = require('../src/base58check')
 var networks = require('../src/networks')
 
 var Address = require('../src/address')
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECKey = require('../src/eckey')
 var Transaction = require('../src/transaction')
 var Script = require('../src/script')

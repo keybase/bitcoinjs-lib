@@ -2,10 +2,10 @@ var assert = require('assert')
 var crypto = require('../src/crypto')
 var networks = require('../src/networks')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECPubKey = require('../src/ecpubkey')
 
-var ecurve = require('ecurve')
+var ecurve = require('keybase-ecurve')
 var curve = ecurve.getCurveByName('secp256k1')
 
 var fixtures = require('./fixtures/ecpubkey.json')

@@ -2,7 +2,7 @@ var assert = require('assert')
 var networks = require('../src/networks')
 
 var Address = require('../src/address')
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECKey = require('../src/eckey')
 var Message = require('../src/message')
 

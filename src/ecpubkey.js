@@ -5,7 +5,7 @@ var networks = require('./networks')
 
 var Address = require('./address')
 
-var ecurve = require('ecurve')
+var ecurve = require('keybase-ecurve')
 var curve = ecurve.getCurveByName('secp256k1')
 
 function ECPubKey(Q, compressed) {

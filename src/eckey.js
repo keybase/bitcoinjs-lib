@@ -4,10 +4,10 @@ var ecdsa = require('./ecdsa')
 var networks = require('./networks')
 var secureRandom = require('secure-random')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECPubKey = require('./ecpubkey')
 
-var ecurve = require('ecurve')
+var ecurve = require('keybase-ecurve')
 var curve = ecurve.getCurveByName('secp256k1')
 
 function ECKey(d, compressed) {

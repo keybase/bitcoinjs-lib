@@ -4,10 +4,10 @@ var ecdsa = require('../src/ecdsa')
 var message = require('../src/message')
 var networks = require('../src/networks')
 
-var BigInteger = require('bigi')
+var BigInteger = require('bn').BigInteger
 var ECSignature = require('../src/ecsignature')
 
-var ecurve = require('ecurve')
+var ecurve = require('keybase-ecurve')
 var curve = ecurve.getCurveByName('secp256k1')
 
 var fixtures = require('./fixtures/ecdsa.json')
