@@ -9,6 +9,7 @@ describe('convert', function() {
       it('converts ' + f.hex + ' correctly', function() {
         var buffer = new Buffer(f.hex, 'hex')
         var result = convert.bufferToWordArray(buffer)
+        f.result = result;
 
         assert.deepEqual(result, f.wordArray)
       })
@@ -18,7 +19,7 @@ describe('convert', function() {
   describe('wordArrayToBuffer', function() {
     fixtures.valid.forEach(function(f) {
       it('converts to ' + f.hex + ' correctly', function() {
-        var resultHex = convert.wordArrayToBuffer(f.wordArray).toString('hex')
+        var resultHex = convert.wordArrayToBuffer(f.result).toString('hex')
 
         assert.deepEqual(resultHex, f.hex)
       })
