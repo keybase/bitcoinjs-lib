@@ -69,9 +69,9 @@
     "compile": "./node_modules/.bin/browserify ./src/index.js -s Bitcoin | ./node_modules/.bin/uglifyjs > bitcoinjs-min.js"
   },
   "dependencies": {
-    "bigi": "1.1.0",
-    "crypto-js": "3.1.2-3",
+    "bn": "^1.0.1",
     "keybase-ecurve": "0.9.0",
-    "secure-random": "0.2.1"
+    "secure-random": "0.2.1",
+    "triplesec": "^3.0.17"
   }
 }

@@ -3,19 +3,24 @@ var triplesec = require('triplesec');
 var hash = triplesec.hash;
 var WordArray = triplesec.WordArray;
 
+function to_word_array (buf) {
+	if (typeof(buf) === 'string') { return WordArray.from_utf8(buf); }
+	else { return WordArray.from_buffer(buf); }
+}
+
 function make_hasher(klass) {
 	return function(buffer) {
 		var obj = new klass();
-		obj.update(WordArray.from_buffer(buffer));
+		obj.update(to_word_array(buffer));
 		return obj.finalize().to_buffer();
 	};
 };
 
 function make_hmac(klass) {
 	return function(data,secret) {
-		var key = WordArray.from_buffer(secret);
+		var key = to_word_array(secret);
 		var obj = new triplesec.HMAC(key, klass);
-		obj.update(WordArray.from_buffer(data));
+		obj.update(to_word_array(data));
 		return obj.finalize().to_buffer();
 	};
 };
@@ -24,7 +29,7 @@ function make_double_hash(klass0, klass1) {
 	return function (data) {
 		var h1 = new klass0 ();
 		var h2 = new klass1 ();
-		h1.update(WordArray.from_buffer(buffer));
+		h1.update(to_word_array(data));
 		h2.update(h1.finalize());
 		return h2.finalize().to_buffer();
 	};

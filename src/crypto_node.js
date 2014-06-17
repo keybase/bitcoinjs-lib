@@ -13,16 +13,16 @@ function ripemd160(buffer) {
   return crypto.createHash('ripemd160').update(buffer).digest();
 }
 
-function HmacSHA256(buffer, secret) {
-  return crypto.createHmac('sha256', secret).update(buffer).digest()
+function HmacSHA256(data, secret) {
+  return crypto.createHmac('sha256', secret).update(data).digest()
 }
 
 function HmacSHA512(data, secret) {
-  return crypto.createHmac('sha512', secret).update(buffer).digest();
+  return crypto.createHmac('sha512', secret).update(data).digest();
 }
 
 function hash160(buffer) {
-  return sha256(ripemd160(buffer));
+  return ripemd160(sha256(buffer));
 }
 
 function hash256(buffer) {
