@@ -4,13 +4,13 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQEcBAABCgAGBQJToHZDAAoJEJgKPw0B/gTf7+sIAK5grkP4701zHsRMJ1T73jXr
-TrqV5RXXR5mLGO7jjVCwrKMFUmIADBs4Fxo8TE6/Ix/dg7az/3cNILkSConGEUL9
-mchfEjb0brI79dxDp7f3mY2nQc3GmYfGdxHgQvPXwnYm7rtHTpJUzpe8HHP5C28I
-DdVqvMlqO3GVfHI0h2AvEmVVIiq5i1rgtMsGkjcyvqMUAi4kpraRIn9rnIw7NM+j
-JRJ5P6UpVRX3StfnENBu6avGQCFrU0KbRJkM+0g69xwrW6Pi9OSzFIhbFoHu4MZW
-DNpD8lIjBs+3H1VKtwZDlkr0s2v74dwT7SfMVLnXhxnoU0F3WDRoEXcKmsE4kcQ=
-=3tZH
+iQEcBAABCgAGBQJToI1NAAoJEJgKPw0B/gTf7IQIAJjOLsL5He4rZtgauPeNXWDb
+3iwi+QhNv7+ool69gqmPjbnlkMwADndP450Zl88LCtcrsPxR/jjKmOV/foq5OnVE
+/+amWV3lN4bI4UFegwrdUW3iPjryD0QeO3pqJ3FsLcILwWmKNLUI/HE6gRSQ+/eg
+JWDQAqMgwx7BpVFXpl47bkJTEBXP68TxX3P1d5dAJ85eFuGWDO2I85s98kPUhsy7
+UMG8tFVggRDYwqYiMMqfdBy9VdrYW4CBzUGIUpmTQF2ecYjZHeK237+VrOQAjffQ
+lKt7Mp1s8IRo4qH7yknXP/xIgM4tiE8klTuTDwo2taOJRjlz23G+oarwCRTAJAA=
+=byRZ
 -----END PGP SIGNATURE-----
 
 ```
@@ -29,14 +29,14 @@ size    exec  file                               contents
 1057            LICENSE                          51e12d619c94b80249060b25c842cc9cb84797b5367c3c584169043be4c5409b
 5065            README.md                        6f1a3e01495444bd92490878e2fbc155027a4bddb0cea6dceebd6bb277c116a4
 309             jshint.json                      f61b0cc0a09a7b7adefe7a1cc8d30f7799aeeea8bedddf3ab3b265b8e680baf5
-2206            package.json                     87c2fe432a6883d7590e2d7346debc07354512d532c2f102489b5702e30d8c8d
+2214            package.json                     e19fb9263583bd1d7fe3e7686f140e6f40d092864a6d34800a34825ba3acb84a
 496             patch.sh                         08076e881daab19b20c78027900d2afb25c27b338d875d79bf3a7adffdfb778b
                 src/                                                                                             
 1878              address.js                     d5712ba7f08e0ad5068c7dfe52aa75cfc86d033f909da52ddf4f8a10b5e2ec3b
 1723              base58.js                      f3490df3307acab757df6483cf5bd803e48ec53ebb9f27ad79661d464baba767
 738               base58check.js                 02a63d652b735599a291e0c8d3b95a407e45e8bab4604cc8ef7f92569fb02c85
 3629              bufferutils.js                 4b50c14951d3b0ac29b0f0920e8e5999ec6c3ca5a8877fa803897732c7f74380
-791               convert.js                     41ebbbdc1397210abb5d89d5714e0596eab29d22295f687d08b5074af6aac138
+299               convert.js                     493a78c7c3ea584e5c1d0ed9964da160ce556b2cb74357241cb837e7ea9917bc
 168               crypto.js                      6e2b5427c127178f64301333c6073d0be95f9b73a6bb1e6c8716ce23818e9590
 822               crypto_node.js                 cb482cb4f4f31378c005fbd7593769543c84c7c35ff71e97066117a45a69d8df
 1211              crypto_triplesec.js            bb8995270e97ebfd90d991d24ed2cfe6191f69325c9321e51b05f78e5c36360f
@@ -59,7 +59,7 @@ size    exec  file                               contents
 977               base58check.js                 f7606dae94328062a846d4ec3d13907ca8a4d2d3facc357d9ff2a9bfb09d95e3
 5857              bitcoin.core.js                1fdbd7277ef19f07f67171bf5d9c279465f51de8550f896db1a14ed2abd138a1
 4078              bufferutils.js                 80f12b7696f9cd674341554dbbd87ba0a8a4e4e096a9b4f6172026e8e284ea5f
-759               convert.js                     c4cdf43a69f6c0f593019a505e50d921d82650736690ac0d38fe7a022f333573
+783               convert.js                     c0682a5dffe2bfd732bce518bc1503fdd7e5c19d12ba954f3857a4c16783ac11
 2372              crypto.js                      33fa19103e7c5436c54b4dab6125804da384538f0e59ffb75bbd5fbb29a96458
 4470              ecdsa.js                       3e120ff4d324ed4200a04d003f1108a86fb170ca8608a78ad933337e1e627ad9
 2562              eckey.js                       9476b489cd0576c328e893b92f6689eaa1aa81471df9bdffab2bbf2187b30c62
@@ -70,7 +70,7 @@ size    exec  file                               contents
 1415                base58.json                  066f35a4d66646d7f9dfb98af8e1fcbf5bdaa867ecfbf59e493fda5bd1203d4b
 7640                base58check.json             e4d64340dd3142dc6db0fc3eb54a7d8b25199f98af1e6a1681422aef74ed3cac
 2080                bufferutils.json             8638b9fa6cbcf40da23f5e7271be665e469a43bba66eca1115619c9111e07aad
-538                 convert.json                 1e1d85dac1eb0037295e610278851887f8c02ca7e22f2f40d4c685bd6f8fe01e
+570                 convert.json                 6bf40e7a8152f94016ed8930cff10e8e15bc1f4f228e0be4075e27f67fc285ac
                     core/                                                                                        
 829                   README.md                  58727a61274fc5078f9f75a36f9bd62d2e241880810b6700fb201cb4f533dc8e
 438                   base58_encode_decode.json  2c56f0292ffe76083430557700a095e72e1e0483343667159700e6942795810f
