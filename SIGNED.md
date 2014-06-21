@@ -1,16 +1,15 @@
 ##### Signed by https://keybase.io/max
 ```
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
-Comment: GPGTools - https://gpgtools.org
+Version: GnuPG v2
 
-iQEcBAABCgAGBQJToI1NAAoJEJgKPw0B/gTf7IQIAJjOLsL5He4rZtgauPeNXWDb
-3iwi+QhNv7+ool69gqmPjbnlkMwADndP450Zl88LCtcrsPxR/jjKmOV/foq5OnVE
-/+amWV3lN4bI4UFegwrdUW3iPjryD0QeO3pqJ3FsLcILwWmKNLUI/HE6gRSQ+/eg
-JWDQAqMgwx7BpVFXpl47bkJTEBXP68TxX3P1d5dAJ85eFuGWDO2I85s98kPUhsy7
-UMG8tFVggRDYwqYiMMqfdBy9VdrYW4CBzUGIUpmTQF2ecYjZHeK237+VrOQAjffQ
-lKt7Mp1s8IRo4qH7yknXP/xIgM4tiE8klTuTDwo2taOJRjlz23G+oarwCRTAJAA=
-=byRZ
+iQEcBAABAgAGBQJTpMzPAAoJEJgKPw0B/gTfC6EH/3pvgZFYXKVfdOBWbGRxrJr9
+jGmZXbw1Ya8+IhjgxyiuZvByIXh4yHmH1oS4idBjYJfFKrqgDWYBSYIN0epQixHL
+C/5Kme9ZCSofpjVbcOXx7mtjn9gR0Ci1EmpVcNNGRsL8hyoogGNlsROo3UdzLQ0P
+SiIb/PsAFTpjwn/poRjLLyGtNC4EJDWMSCSYwsuQDhcYkHGB8Zeur1ESWPjDWasb
+r9VXMSEj7lMKO0CHKGzHmU4t8hlNPnSD9O5EPFw77c8mkq0FHM+rksflFxxKxrwv
+/wEiFf2xiFB5GP9hiFfWYf4A/tiXE//AkJdh+cYAEkhUCpD9aXB3D2ncdDpTvwc=
+=S3uP
 -----END PGP SIGNATURE-----
 
 ```
@@ -29,7 +28,7 @@ size    exec  file                               contents
 1057            LICENSE                          51e12d619c94b80249060b25c842cc9cb84797b5367c3c584169043be4c5409b
 5065            README.md                        6f1a3e01495444bd92490878e2fbc155027a4bddb0cea6dceebd6bb277c116a4
 309             jshint.json                      f61b0cc0a09a7b7adefe7a1cc8d30f7799aeeea8bedddf3ab3b265b8e680baf5
-2214            package.json                     e19fb9263583bd1d7fe3e7686f140e6f40d092864a6d34800a34825ba3acb84a
+2214            package.json                     c96a8c0e3450f1eed13c7d78200a4114defb72eb66c3baed8403c044fb167ee1
 496             patch.sh                         08076e881daab19b20c78027900d2afb25c27b338d875d79bf3a7adffdfb778b
                 src/                                                                                             
 1878              address.js                     d5712ba7f08e0ad5068c7dfe52aa75cfc86d033f909da52ddf4f8a10b5e2ec3b
@@ -38,8 +37,8 @@ size    exec  file                               contents
 3629              bufferutils.js                 4b50c14951d3b0ac29b0f0920e8e5999ec6c3ca5a8877fa803897732c7f74380
 299               convert.js                     493a78c7c3ea584e5c1d0ed9964da160ce556b2cb74357241cb837e7ea9917bc
 168               crypto.js                      6e2b5427c127178f64301333c6073d0be95f9b73a6bb1e6c8716ce23818e9590
-822               crypto_node.js                 cb482cb4f4f31378c005fbd7593769543c84c7c35ff71e97066117a45a69d8df
-1211              crypto_triplesec.js            bb8995270e97ebfd90d991d24ed2cfe6191f69325c9321e51b05f78e5c36360f
+931               crypto_node.js                 5cd71b3e8cd73db9e91b7ec52a814acbd64a085a8a8be053a3fa89fe7f393425
+1254              crypto_triplesec.js            89e23150cbf61a1fe0ec4921984fb4f0afcc804e30178d0fa65e12bc8f8bbfa5
 4710              ecdsa.js                       ad8be714acba1aa9ece8e8fe17a1ba20820c351ef240ac2dd3cc390b0d9dee9e
 1855              eckey.js                       3e2098eda2294057deee332614a46366a617ebd25578b60fd6d26d7a32ff2b6e
 1306              ecpubkey.js                    c30c5614cb27a143dc9bdfc03058f4365aaf8ccb729e032cf3f909d906d5fa79
