@@ -38,6 +38,7 @@ function make_double_hash(klass0, klass1) {
 exports.sha1 = make_hasher(hash.SHA1);
 exports.ripemd160 = make_hasher(hash.RIPEMD160);
 exports.sha256 = make_hasher(hash.SHA256);
+exports.sha512 = make_hasher(hash.SHA512);
 exports.HmacSHA256 = make_hmac(hash.SHA256);
 exports.HmacSHA512 = make_hmac(hash.SHA512);
 exports.hash256 = make_double_hash(hash.SHA256, hash.SHA256);

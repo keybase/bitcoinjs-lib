@@ -9,6 +9,10 @@ function sha256(buffer) {
   return crypto.createHash('sha256').update(buffer).digest()
 }
 
+function sha512(buffer) {
+  return crypto.createHash('sha512').update(buffer).digest()
+}
+
 function ripemd160(buffer) { 
   return crypto.createHash('ripemd160').update(buffer).digest();
 }
@@ -32,6 +36,7 @@ function hash256(buffer) {
 module.exports = {
   sha1: sha1,
   sha256: sha256,
+  sha512 : sha512,
   ripemd160 : ripemd160,
   HmacSHA256: HmacSHA256,
   HmacSHA512: HmacSHA512,
