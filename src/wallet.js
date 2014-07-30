@@ -1,6 +1,6 @@
 var assert = require('assert')
+var crypto = require('crypto')
 var networks = require('./networks')
-var rng = require('secure-random')
 
 var Address = require('./address')
 var HDNode = require('./hdnode')
@@ -25,7 +25,7 @@ function Wallet(seed, network) {
 
   // Make a new master key
   this.newMasterKey = function(seed) {
-    seed = seed || new Buffer(rng(32))
+    seed = seed || crypto.randomBytes(32)
     masterkey = HDNode.fromSeedBuffer(seed, network)
 
     // HD first-level child derivation method should be hardened
@@ -65,7 +65,7 @@ function Wallet(seed, network) {
 
     for(var key in this.outputs){
       var output = this.outputs[key]
-      utxo.push(outputToUnspentOutput(output))
+      if(!output.to) utxo.push(outputToUnspentOutput(output))
     }
 
     return utxo
@@ -77,20 +77,21 @@ function Wallet(seed, network) {
     utxo.forEach(function(uo){
       validateUnspentOutput(uo)
       var o = unspentOutputToOutput(uo)
-      outputs[o.receive] = o
+      outputs[o.from] = o
     })
 
     this.outputs = outputs
   }
 
   function outputToUnspentOutput(output){
-    var hashAndIndex = output.receive.split(":")
+    var hashAndIndex = output.from.split(":")
 
     return {
       hash: hashAndIndex[0],
       outputIndex: parseInt(hashAndIndex[1]),
       address: output.address,
-      value: output.value
+      value: output.value,
+      pending: output.pending
     }
   }
 
@@ -98,7 +99,7 @@ function Wallet(seed, network) {
     var hash = o.hash
     var key = hash + ":" + o.outputIndex
     return {
-      receive: key,
+      from: key,
       address: o.address,
       value: o.value,
       pending: o.pending
@@ -158,7 +159,7 @@ function Wallet(seed, network) {
         var output = txid + ':' + i
 
         me.outputs[output] = {
-          receive: output,
+          from: output,
           value: txOut.value,
           address: address,
           pending: isPending
@@ -166,7 +167,7 @@ function Wallet(seed, network) {
       }
     })
 
-    tx.ins.forEach(function(txIn) {
+    tx.ins.forEach(function(txIn, i) {
       // copy and convert to big-endian hex
       var txinId = new Buffer(txIn.hash)
       Array.prototype.reverse.call(txinId)
@@ -174,7 +175,14 @@ function Wallet(seed, network) {
 
       var output = txinId + ':' + txIn.index
 
-      if(me.outputs[output]) delete me.outputs[output]
+      if (!(output in me.outputs)) return
+
+      if (isPending) {
+        me.outputs[output].to = txid + ':' + i
+        me.outputs[output].pending = true
+      } else {
+        delete me.outputs[output]
+      }
     })
   }
 
@@ -193,7 +201,7 @@ function Wallet(seed, network) {
       var utxo = utxos[i]
       addresses.push(utxo.address)
 
-      var outpoint = utxo.receive.split(':')
+      var outpoint = utxo.from.split(':')
       tx.addInput(outpoint[0], parseInt(outpoint[1]))
 
       var fee = fixedFee == undefined ? estimateFeePadChangeOutput(tx) : fixedFee
@@ -234,7 +242,7 @@ function Wallet(seed, network) {
 
   function estimateFeePadChangeOutput(tx) {
     var tmpTx = tx.clone()
-    tmpTx.addOutput(getChangeAddress(), 0)
+    tmpTx.addOutput(getChangeAddress(), network.dustSoftThreshold || 0)
 
     return network.estimateFee(tmpTx)
   }

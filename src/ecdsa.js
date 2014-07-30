@@ -3,8 +3,8 @@ var crypto = require('./crypto')
 
 var BigInteger = require('bn').BigInteger
 var ECSignature = require('./ecsignature')
-var Point = require('keybase-ecurve').Point
 
+// https://tools.ietf.org/html/rfc6979#section-3.2
 function deterministicGenerateK(curve, hash, d) {
   assert(Buffer.isBuffer(hash), 'Hash must be a Buffer, not ' + hash)
   assert.equal(hash.length, 32, 'Hash must be 256 bit')
@@ -13,22 +13,40 @@ function deterministicGenerateK(curve, hash, d) {
   var x = d.toBuffer(32)
   var k = new Buffer(32)
   var v = new Buffer(32)
-  k.fill(0)
+
+  // Step B
   v.fill(1)
 
+  // Step C
+  k.fill(0)
+
+  // Step D
   k = crypto.HmacSHA256(Buffer.concat([v, new Buffer([0]), x, hash]), k)
+
+  // Step E
   v = crypto.HmacSHA256(v, k)
 
+  // Step F
   k = crypto.HmacSHA256(Buffer.concat([v, new Buffer([1]), x, hash]), k)
-  v = crypto.HmacSHA256(v, k)
+
+  // Step G
   v = crypto.HmacSHA256(v, k)
 
-  var n = curve.n
-  var kB = BigInteger.fromBuffer(v).mod(n)
-  assert(kB.compareTo(BigInteger.ONE) > 0, 'Invalid k value')
-  assert(kB.compareTo(n) < 0, 'Invalid k value')
+  // Step H1/H2a, ignored as tlen === qlen (256 bit)
+  // Step H2b
+  v = crypto.HmacSHA256(v, k)
 
-  return kB
+  var T = BigInteger.fromBuffer(v)
+
+  // Step H3, repeat until T is within the interval [1, n - 1]
+  while ((T.signum() <= 0) || (T.compareTo(curve.n) >= 0)) {
+    k = crypto.HmacSHA256(Buffer.concat([v, new Buffer([0])]), k)
+    v = crypto.HmacSHA256(v, k)
+
+    T = BigInteger.fromBuffer(v)
+  }
+
+  return T
 }
 
 function sign(curve, hash, d) {
@@ -56,6 +74,8 @@ function sign(curve, hash, d) {
 }
 
 function verify(curve, hash, signature, Q) {
+  // 1.4.2 H = Hash(M), already done by the user
+  // 1.4.3 e = H
   var e = BigInteger.fromBuffer(hash)
 
   return verifyRaw(curve, e, signature, Q)
@@ -68,17 +88,26 @@ function verifyRaw(curve, e, signature, Q) {
   var r = signature.r
   var s = signature.s
 
-  if (r.signum() === 0 || r.compareTo(n) >= 0) return false
-  if (s.signum() === 0 || s.compareTo(n) >= 0) return false
+  // 1.4.1 Enforce r and s are both integers in the interval [1, n − 1]
+  if (r.signum() <= 0 || r.compareTo(n) >= 0) return false
+  if (s.signum() <= 0 || s.compareTo(n) >= 0) return false
 
+  // c = s^-1 mod n
   var c = s.modInverse(n)
 
+  // 1.4.4 Compute u1 = es^−1 mod n
+  //               u2 = rs^−1 mod n
   var u1 = e.multiply(c).mod(n)
   var u2 = r.multiply(c).mod(n)
 
-  var point = G.multiplyTwo(u1, Q, u2)
-  var v = point.affineX.mod(n)
+  // 1.4.5 Compute R = (xR, yR) = u1G + u2Q
+  var R = G.multiplyTwo(u1, Q, u2)
+  var v = R.affineX.mod(n)
 
+  // 1.4.5 (cont.) Enforce R is not at infinity
+  if (curve.isInfinity(R)) return false
+
+  // 1.4.8 If v = r, output "valid", and if v != r, output "invalid"
   return v.equals(r)
 }
 
@@ -93,41 +122,27 @@ function verifyRaw(curve, e, signature, Q) {
 function recoverPubKey(curve, e, signature, i) {
   assert.strictEqual(i & 3, i, 'Recovery param is more than two bits')
 
+  var n = curve.n
+  var G = curve.G
+
   var r = signature.r
   var s = signature.s
 
+  assert(r.signum() > 0 && r.compareTo(n) < 0, 'Invalid r value')
+  assert(s.signum() > 0 && s.compareTo(n) < 0, 'Invalid s value')
+
   // A set LSB signifies that the y-coordinate is odd
-  // By reduction, the y-coordinate is even if it is clear
-  var isYEven = !(i & 1)
+  var isYOdd = i & 1
 
   // The more significant bit specifies whether we should use the
   // first or second candidate key.
   var isSecondKey = i >> 1
 
-  var n = curve.n
-  var G = curve.G
-  var p = curve.p
-  var a = curve.a
-  var b = curve.b
-
-  // We precalculate (p + 1) / 4 where p is the field order
-  if (!curve.P_OVER_FOUR) {
-    curve.P_OVER_FOUR = p.add(BigInteger.ONE).shiftRight(2)
-  }
-
   // 1.1 Let x = r + jn
   var x = isSecondKey ? r.add(n) : r
-
-  // 1.2, 1.3 Convert x to a point R using routine specified in Section 2.3.4
-  var alpha = x.pow(3).add(a.multiply(x)).add(b).mod(p)
-  var beta = alpha.modPow(curve.P_OVER_FOUR, p)
-
-  // If beta is even, but y isn't, or vice versa, then convert it,
-  // otherwise we're done and y == beta.
-  var y = (beta.isEven() ^ isYEven) ? p.subtract(beta) : beta
+  var R = curve.pointFromX(isYOdd, x)
 
   // 1.4 Check that nR is at infinity
-  var R = Point.fromAffine(curve, x, y)
   var nR = R.multiply(n)
   assert(curve.isInfinity(nR), 'nR is not a valid curve point')
 

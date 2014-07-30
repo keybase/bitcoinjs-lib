@@ -5,7 +5,6 @@ var opcodes = require('./opcodes')
 var scripts = require('./scripts')
 
 var Address = require('./address')
-var ECKey = require('./eckey')
 var ECSignature = require('./ecsignature')
 var Script = require('./script')
 
@@ -84,9 +83,12 @@ Transaction.prototype.addOutput = function(scriptPubKey, value) {
     scriptPubKey = address.toOutputScript()
   }
 
+  assert(scriptPubKey instanceof Script, 'Expected Address or Script, got ' + scriptPubKey)
+  assert.equal(typeof value, 'number', 'Expected number value, got ' + value)
+
   return (this.outs.push({
     script: scriptPubKey,
-    value: value,
+    value: value
   }) - 1)
 }
 

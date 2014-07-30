@@ -1,6 +1,7 @@
 var assert = require('assert')
-var crypto = require('../src/crypto')
+var crypto = require('crypto')
 var networks = require('../src/networks')
+var sinon = require('sinon')
 
 var BigInteger = require('bn').BigInteger
 var ECKey = require('../src/eckey')
@@ -26,7 +27,7 @@ describe('ECKey', function() {
         var d = new BigInteger(f.d)
         var privKey = new ECKey(d)
 
-        assert.equal(privKey.pub.Q.toString(), f.Q.toString())
+        assert.equal(privKey.pub.Q.toString(), f.Q)
       })
     })
 
@@ -76,8 +77,44 @@ describe('ECKey', function() {
     })
   })
 
+  describe('makeRandom', function() {
+    var exWIF = 'KwMWvwRJeFqxYyhZgNwYuYjbQENDAPAudQx5VEmKJrUZcq6aL2pv'
+    var exPrivKey = ECKey.fromWIF(exWIF)
+    var exBuffer = exPrivKey.d.toBuffer(32)
+
+    describe('uses default crypto RNG', function() {
+      beforeEach(function() {
+        sinon.stub(crypto, 'randomBytes').returns(exBuffer)
+      })
+
+      afterEach(function() {
+        crypto.randomBytes.restore()
+      })
+
+      it('generates a ECKey', function() {
+        var privKey = ECKey.makeRandom()
+
+        assert.equal(privKey.toWIF(), exWIF)
+      })
+
+      it('supports compression', function() {
+        assert.equal(ECKey.makeRandom(true).pub.compressed, true)
+        assert.equal(ECKey.makeRandom(false).pub.compressed, false)
+      })
+    })
+
+    it('allows a custom RNG to be used', function() {
+      function rng(size) {
+        return exBuffer.slice(0, size)
+      }
+
+      var privKey = ECKey.makeRandom(undefined, rng)
+      assert.equal(privKey.toWIF(), exWIF)
+    })
+  })
+
   describe('signing', function() {
-    var hash = crypto.sha256('Vires in numeris')
+    var hash = crypto.randomBytes(32)
     var priv = ECKey.makeRandom()
     var signature = priv.sign(hash)
 

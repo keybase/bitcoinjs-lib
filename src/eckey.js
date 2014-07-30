@@ -1,8 +1,8 @@
 var assert = require('assert')
-var base58check = require('./base58check')
+var base58check = require('bs58check')
+var crypto = require('crypto')
 var ecdsa = require('./ecdsa')
 var networks = require('./networks')
-var secureRandom = require('secure-random')
 
 var BigInteger = require('bn').BigInteger
 var ECPubKey = require('./ecpubkey')
@@ -43,9 +43,11 @@ ECKey.fromWIF = function(string) {
 }
 
 ECKey.makeRandom = function(compressed, rng) {
-  rng = rng || secureRandom
+  rng = rng || crypto.randomBytes
 
-  var buffer = new Buffer(rng(32))
+  var buffer = rng(32)
+  assert(Buffer.isBuffer(buffer), 'Expected Buffer, got ' + buffer)
+
   var d = BigInteger.fromBuffer(buffer)
   d = d.mod(curve.n)
 
