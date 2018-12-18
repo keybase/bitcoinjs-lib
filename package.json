@@ -77,6 +77,6 @@
     "bs58check": "^1.0.1",
     "keybase-ecurve": "^1.0.0",
     "secure-random": "0.2.1",
-    "triplesec": "^3.0.17"
+    "triplesec": "^4.0.1"
   }
 }
