@@ -18,7 +18,7 @@ var BASE = BigInteger.valueOf(58)
 
 function encode(buffer) {
   var bi = BigInteger.fromBuffer(buffer)
-  var result = Buffer.from(buffer.length << 1)
+  var result = Buffer.alloc(buffer.length << 1)
 
   var i = result.length - 1
   while (bi.signum() > 0) {
