@@ -14,9 +14,9 @@ var ecurve = require('keybase-ecurve')
 var ecparams = ecurve.getCurveByName('secp256k1')
 
 function magicHash(message, network) {
-  var magicPrefix = new Buffer(network.magicPrefix)
-  var messageBuffer = new Buffer(message)
-  var lengthBuffer = new Buffer(bufferutils.varIntSize(messageBuffer.length))
+  var magicPrefix = Buffer.from(network.magicPrefix)
+  var messageBuffer = Buffer.from(message)
+  var lengthBuffer = Buffer.alloc(bufferutils.varIntSize(messageBuffer.length))
   bufferutils.writeVarInt(lengthBuffer, messageBuffer.length, 0)
 
   var buffer = Buffer.concat([magicPrefix, lengthBuffer, messageBuffer])

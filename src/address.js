@@ -43,7 +43,7 @@ Address.fromOutputScript = function(script, network) {
 
 // Export functions
 Address.prototype.toBase58Check = function () {
-  var payload = new Buffer(21)
+  var payload = Buffer.alloc(21)
   payload.writeUInt8(this.version, 0)
   this.hash.copy(payload, 1)
 

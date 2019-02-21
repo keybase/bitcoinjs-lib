@@ -20,7 +20,7 @@ Script.fromASM = function(asm) {
       return opcodes[strChunk]
 
     } else {
-      return new Buffer(strChunk, 'hex')
+      return Buffer.from(strChunk, 'hex')
     }
   })
 
@@ -65,7 +65,7 @@ Script.fromChunks = function(chunks) {
     return accum + 1
   }, 0.0)
 
-  var buffer = new Buffer(bufferSize)
+  var buffer = Buffer.alloc(bufferSize)
   var offset = 0
 
   chunks.forEach(function(chunk) {
@@ -86,7 +86,7 @@ Script.fromChunks = function(chunks) {
 }
 
 Script.fromHex = function(hex) {
-  return Script.fromBuffer(new Buffer(hex, 'hex'))
+  return Script.fromBuffer(Buffer.from(hex, 'hex'))
 }
 
 // Constants

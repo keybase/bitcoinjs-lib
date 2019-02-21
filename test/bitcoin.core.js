@@ -33,7 +33,7 @@ describe('Bitcoin-core', function() {
       })
 
       it('can encode ' + fhex, function() {
-        var buffer = new Buffer(fhex, 'hex')
+        var buffer = Buffer.from(fhex, 'hex')
         var actual = base58.encode(buffer)
 
         assert.equal(actual, fb58)
@@ -201,7 +201,7 @@ describe('Bitcoin-core', function() {
 
   describe('ECSignature', function() {
     sig_canonical.forEach(function(hex) {
-      var buffer = new Buffer(hex, 'hex')
+      var buffer = Buffer.from(hex, 'hex')
 
       it('can parse ' + hex, function() {
         var parsed = ECSignature.parseScriptSignature(buffer)
@@ -217,7 +217,7 @@ describe('Bitcoin-core', function() {
       var description = sig_noncanonical[i - 1].slice(0, -1)
       if (description === 'too long') return // we support non secp256k1 signatures
 
-      var buffer = new Buffer(hex, 'hex')
+      var buffer = Buffer.from(hex, 'hex')
 
       it('throws on ' + description, function() {
         assert.throws(function() {

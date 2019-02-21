@@ -9,7 +9,7 @@ var assert = require('assert')
 var BigInteger = require('bn').BigInteger
 
 var ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-var ALPHABET_BUF = new Buffer(ALPHABET, 'ascii')
+var ALPHABET_BUF = Buffer.from(ALPHABET, 'ascii')
 var ALPHABET_MAP = {}
 for(var i = 0; i < ALPHABET.length; i++) {
   ALPHABET_MAP[ALPHABET.charAt(i)] = BigInteger.valueOf(i)
@@ -18,7 +18,7 @@ var BASE = BigInteger.valueOf(58)
 
 function encode(buffer) {
   var bi = BigInteger.fromBuffer(buffer)
-  var result = new Buffer(buffer.length << 1)
+  var result = Buffer.from(buffer.length << 1)
 
   var i = result.length - 1
   while (bi.signum() > 0) {
@@ -41,7 +41,7 @@ function encode(buffer) {
 }
 
 function decode(string) {
-  if (string.length === 0) return new Buffer(0)
+  if (string.length === 0) return Buffer.alloc(0)
 
   var num = BigInteger.ZERO
 
@@ -61,7 +61,7 @@ function decode(string) {
   }
 
   var buffer = num.toBuffer()
-  var leadingZeros = new Buffer(j)
+  var leadingZeros = Buffer.alloc(j)
   leadingZeros.fill(0)
 
   return Buffer.concat([leadingZeros, buffer])

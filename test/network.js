@@ -20,7 +20,7 @@ describe('networks', function() {
       var network = networks[f.network]
 
       it('calculates the fee correctly for ' + f.description, function() {
-        var buffer = new Buffer(f.txSize)
+        var buffer = Buffer.alloc(f.txSize)
         txToBuffer.returns(buffer)
 
         var estimateFee = network.estimateFee

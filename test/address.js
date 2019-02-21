@@ -10,7 +10,7 @@ describe('Address', function() {
   describe('Constructor', function() {
     it('does not mutate the input', function() {
       fixtures.valid.forEach(function(f) {
-        var hash = new Buffer(f.hex, 'hex')
+        var hash = Buffer.from(f.hex, 'hex')
         var addr = new Address(hash, f.version)
 
         assert.equal(addr.version, f.version)
@@ -83,7 +83,7 @@ describe('Address', function() {
 
     fixtures.invalid.toOutputScript.forEach(function(f) {
       it('throws when ' + f.description, function() {
-        var addr = new Address(new Buffer(f.hex, 'hex'), f.version)
+        var addr = new Address(Buffer.from(f.hex, 'hex'), f.version)
 
         assert.throws(function() {
           addr.toOutputScript()

@@ -25,7 +25,7 @@ ECPubKey.fromBuffer = function(buffer) {
 }
 
 ECPubKey.fromHex = function(hex) {
-  return ECPubKey.fromBuffer(new Buffer(hex, 'hex'))
+  return ECPubKey.fromBuffer(Buffer.from(hex, 'hex'))
 }
 
 // Operations

@@ -37,7 +37,7 @@ Transaction.prototype.addInput = function(tx, index, sequence) {
   var hash
 
   if (typeof tx === 'string') {
-    hash = new Buffer(tx, 'hex')
+    hash = Buffer.from(tx, 'hex')
 
     // TxId hex is big-endian, we need little-endian
     Array.prototype.reverse.call(hash)
@@ -101,7 +101,7 @@ Transaction.prototype.toBuffer = function () {
     return a + (8 + bufferutils.varIntSize(x.script.buffer.length) + x.script.buffer.length)
   }, 0)
 
-  var buffer = new Buffer(
+  var buffer = Buffer.alloc(
     8 +
     bufferutils.varIntSize(this.ins.length) +
     bufferutils.varIntSize(this.outs.length) +
@@ -189,7 +189,7 @@ Transaction.prototype.hashForSignature = function(prevOutScript, inIndex, hashTy
     assert(false, 'SIGHASH_ANYONECANPAY not yet supported')
   }
 
-  var hashTypeBuffer = new Buffer(4)
+  var hashTypeBuffer = Buffer.alloc(4)
   hashTypeBuffer.writeInt32LE(hashType, 0)
 
   var buffer = Buffer.concat([txTmp.toBuffer(), hashTypeBuffer])
@@ -293,7 +293,7 @@ Transaction.fromBuffer = function(buffer) {
 }
 
 Transaction.fromHex = function(hex) {
-  return Transaction.fromBuffer(new Buffer(hex, 'hex'))
+  return Transaction.fromBuffer(Buffer.from(hex, 'hex'))
 }
 
 /**

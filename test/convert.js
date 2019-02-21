@@ -7,7 +7,7 @@ describe('convert', function() {
   describe('bufferToWordArray', function() {
     fixtures.valid.forEach(function(f) {
       it('converts ' + f.hex + ' correctly', function() {
-        var buffer = new Buffer(f.hex, 'hex')
+        var buffer = Buffer.from(f.hex, 'hex')
         var result = convert.bufferToWordArray(buffer)
         f.result = result;
 

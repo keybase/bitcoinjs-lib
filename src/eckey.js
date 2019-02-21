@@ -59,7 +59,7 @@ ECKey.prototype.toWIF = function(network) {
   network = network || networks.bitcoin
 
   var bufferLen = this.pub.compressed ? 34 : 33
-  var buffer = new Buffer(bufferLen)
+  var buffer = Buffer.alloc(bufferLen)
 
   buffer.writeUInt8(network.wif, 0)
   this.d.toBuffer(32).copy(buffer, 1)

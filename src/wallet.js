@@ -169,7 +169,7 @@ function Wallet(seed, network) {
 
     tx.ins.forEach(function(txIn, i) {
       // copy and convert to big-endian hex
-      var txinId = new Buffer(txIn.hash)
+      var txinId = Buffer.from(txIn.hash)
       Array.prototype.reverse.call(txinId)
       txinId = txinId.toString('hex')
 
