@@ -46,7 +46,7 @@ function HDNode(K, chainCode, network) {
   }
 }
 
-HDNode.MASTER_SECRET = new Buffer('Bitcoin seed')
+HDNode.MASTER_SECRET = Buffer.from('Bitcoin seed')
 HDNode.HIGHEST_BIT = 0x80000000
 HDNode.LENGTH = 78
 
@@ -67,7 +67,7 @@ HDNode.fromSeedBuffer = function(seed, network) {
 }
 
 HDNode.fromSeedHex = function(hex, network) {
-  return HDNode.fromSeedBuffer(new Buffer(hex, 'hex'), network)
+  return HDNode.fromSeedBuffer(Buffer.from(hex, 'hex'), network)
 }
 
 HDNode.fromBase58 = function(string) {
@@ -127,7 +127,7 @@ HDNode.fromBuffer = function(buffer) {
 }
 
 HDNode.fromHex = function(hex) {
-  return HDNode.fromBuffer(new Buffer(hex, 'hex'))
+  return HDNode.fromBuffer(Buffer.from(hex, 'hex'))
 }
 
 HDNode.prototype.getIdentifier = function() {
@@ -151,7 +151,7 @@ HDNode.prototype.toBuffer = function(isPrivate) {
 
   // Version
   var version = isPrivate ? this.network.bip32.private : this.network.bip32.public
-  var buffer = new Buffer(HDNode.LENGTH)
+  var buffer = Buffer.alloc(HDNode.LENGTH)
 
   // 4 bytes: version bytes
   buffer.writeUInt32BE(version, 0)
@@ -194,7 +194,7 @@ HDNode.prototype.toHex = function(isPrivate) {
 // https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#child-key-derivation-ckd-functions
 HDNode.prototype.derive = function(index) {
   var isHardened = index >= HDNode.HIGHEST_BIT
-  var indexBuffer = new Buffer(4)
+  var indexBuffer = Buffer.alloc(4)
   indexBuffer.writeUInt32BE(index, 0)
 
   var data

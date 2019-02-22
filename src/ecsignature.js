@@ -85,7 +85,7 @@ ECSignature.prototype.toCompact = function(i, compressed) {
   if (compressed) i += 4
   i += 27
 
-  var buffer = new Buffer(65)
+  var buffer = Buffer.alloc(65)
   buffer.writeUInt8(i, 0)
 
   this.r.toBuffer(32).copy(buffer, 1)
@@ -111,12 +111,12 @@ ECSignature.prototype.toDER = function() {
   // SEQUENCE
   sequence.unshift(0x30, sequence.length)
 
-  ret = new Buffer(sequence)
+  ret = Buffer.from(sequence)
   return ret;
 }
 
 ECSignature.prototype.toScriptSignature = function(hashType) {
-  var hashTypeBuffer = new Buffer(1)
+  var hashTypeBuffer = Buffer.alloc(1)
   hashTypeBuffer.writeUInt8(hashType, 0)
 
   return Buffer.concat([this.toDER(), hashTypeBuffer])

@@ -13,7 +13,7 @@ fixtures.valid.forEach(function(f) {
   var Script = require('../src/script')
 
   f.raw.ins.forEach(function(fin) {
-    fin.hash = new Buffer(fin.hash, 'hex')
+    fin.hash = Buffer.from(fin.hash, 'hex')
     fin.script = Script.fromHex(fin.script)
   })
 
@@ -117,7 +117,7 @@ describe('Transaction', function() {
     fixtures.invalid.addInput.forEach(function(f) {
       it('throws on ' + f.exception, function() {
         var tx = new Transaction()
-        var hash = new Buffer(f.hash, 'hex')
+        var hash = Buffer.from(f.hash, 'hex')
 
         assert.throws(function() {
           tx.addInput(hash, f.index)

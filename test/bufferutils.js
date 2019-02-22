@@ -21,7 +21,7 @@ describe('bufferutils', function() {
       if (!f.hexPD) return
 
       it('decodes ' + f.hexPD + ' correctly', function() {
-        var buffer = new Buffer(f.hexPD, 'hex')
+        var buffer = Buffer.from(f.hexPD, 'hex')
         var d = bufferutils.readPushDataInt(buffer, 0)
         var fopcode = parseInt(f.hexPD.substr(0, 2), 16)
 
@@ -35,7 +35,7 @@ describe('bufferutils', function() {
   describe('readUInt64LE', function() {
     fixtures.valid.forEach(function(f) {
       it('decodes ' + f.hex64 + ' correctly', function() {
-        var buffer = new Buffer(f.hex64, 'hex')
+        var buffer = Buffer.from(f.hex64, 'hex')
         var number = bufferutils.readUInt64LE(buffer, 0)
 
         assert.equal(number, f.dec)
@@ -44,7 +44,7 @@ describe('bufferutils', function() {
 
     fixtures.invalid.forEach(function(f) {
       it('throws on ' + f.description, function() {
-        var buffer = new Buffer(f.hex64, 'hex')
+        var buffer = Buffer.from(f.hex64, 'hex')
 
         assert.throws(function() {
           bufferutils.readUInt64LE(buffer, 0)
@@ -56,7 +56,7 @@ describe('bufferutils', function() {
   describe('readVarInt', function() {
     fixtures.valid.forEach(function(f) {
       it('decodes ' + f.hexVI + ' correctly', function() {
-        var buffer = new Buffer(f.hexVI, 'hex')
+        var buffer = Buffer.from(f.hexVI, 'hex')
         var d = bufferutils.readVarInt(buffer, 0)
 
         assert.equal(d.number, f.dec)
@@ -66,7 +66,7 @@ describe('bufferutils', function() {
 
     fixtures.invalid.forEach(function(f) {
       it('throws on ' + f.description, function() {
-        var buffer = new Buffer(f.hexVI, 'hex')
+        var buffer = Buffer.from(f.hexVI, 'hex')
 
         assert.throws(function() {
           bufferutils.readVarInt(buffer, 0)
@@ -90,7 +90,7 @@ describe('bufferutils', function() {
       if (!f.hexPD) return
 
       it('encodes ' + f.dec + ' correctly', function() {
-        var buffer = new Buffer(5)
+        var buffer = Buffer.alloc(5)
         buffer.fill(0)
 
         var n = bufferutils.writePushDataInt(buffer, f.dec, 0)
@@ -102,7 +102,7 @@ describe('bufferutils', function() {
   describe('writeUInt64LE', function() {
     fixtures.valid.forEach(function(f) {
       it('encodes ' + f.dec + ' correctly', function() {
-        var buffer = new Buffer(8)
+        var buffer = Buffer.alloc(8)
         buffer.fill(0)
 
         bufferutils.writeUInt64LE(buffer, f.dec, 0)
@@ -112,7 +112,7 @@ describe('bufferutils', function() {
 
     fixtures.invalid.forEach(function(f) {
       it('throws on ' + f.description, function() {
-        var buffer = new Buffer(8)
+        var buffer = Buffer.alloc(8)
         buffer.fill(0)
 
         assert.throws(function() {
@@ -125,7 +125,7 @@ describe('bufferutils', function() {
   describe('writeVarInt', function() {
     fixtures.valid.forEach(function(f) {
       it('encodes ' + f.dec + ' correctly', function() {
-        var buffer = new Buffer(9)
+        var buffer = Buffer.alloc(9)
         buffer.fill(0)
 
         var n = bufferutils.writeVarInt(buffer, f.dec, 0)
@@ -135,7 +135,7 @@ describe('bufferutils', function() {
 
     fixtures.invalid.forEach(function(f) {
       it('throws on ' + f.description, function() {
-        var buffer = new Buffer(9)
+        var buffer = Buffer.alloc(9)
         buffer.fill(0)
 
         assert.throws(function() {

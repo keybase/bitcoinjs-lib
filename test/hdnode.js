@@ -13,7 +13,7 @@ describe('HDNode', function() {
   describe('Constructor', function() {
     var d = BigInteger.ONE
     var Q = curve.G.multiply(d)
-    var chainCode = new Buffer(32)
+    var chainCode = Buffer.alloc(32)
     chainCode.fill(1)
 
     it('calculates the publicKey from a BigInteger', function() {

@@ -14,7 +14,7 @@ var fixtureTx1Hex = fixtureTxes.prevTx
 var fixtureTx2Hex = fixtureTxes.tx
 
 function fakeTxHash(i) {
-  var hash = new Buffer(32)
+  var hash = Buffer.alloc(32)
   hash.fill(i)
   return hash
 }
@@ -289,7 +289,7 @@ describe('Wallet', function() {
 
         it("outgoing: sets the pending flag and 'to' on output", function(){
           var txIn = spendTx.ins[0]
-          var txInId = new Buffer(txIn.hash)
+          var txInId = Buffer.from(txIn.hash)
           Array.prototype.reverse.call(txInId)
           txInId = txInId.toString('hex')
 
@@ -357,7 +357,7 @@ describe('Wallet', function() {
 
         it("deletes corresponding 'output'", function(){
           var txIn = spendTx.ins[0]
-          var txInId = new Buffer(txIn.hash)
+          var txInId = Buffer.from(txIn.hash)
           Array.prototype.reverse.call(txInId)
           txInId = txInId.toString('hex')
 

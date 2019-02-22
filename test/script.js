@@ -8,7 +8,7 @@ var fixtures = require('./fixtures/script.json')
 describe('Script', function() {
   describe('constructor', function() {
     it('accepts valid parameters', function() {
-      var buffer = new Buffer([1])
+      var buffer = Buffer.from([1])
       var chunks = [1]
       var script = new Script(buffer, chunks)
 
@@ -49,7 +49,7 @@ describe('Script', function() {
 
   describe('fromChunks', function() {
     it('should match expected behaviour', function() {
-      var hash = new Buffer(32)
+      var hash = Buffer.alloc(32)
       hash.fill(0)
 
       var script = Script.fromChunks([

@@ -26,7 +26,7 @@ describe('Message', function() {
       var network = networks[f.network]
 
       var address = Address.fromBase58Check(f.address)
-      var signature = new Buffer(f.signature, 'base64')
+      var signature = Buffer.from(f.signature, 'base64')
       assert.ok(Message.verify(address, signature, f.message, network))
     })
 
@@ -34,11 +34,11 @@ describe('Message', function() {
       it('verifies a valid signature for \"' + f.message + '\" (' + f.network + ')', function() {
         var network = networks[f.network]
 
-        var signature = new Buffer(f.signature, 'base64')
+        var signature = Buffer.from(f.signature, 'base64')
         assert.ok(Message.verify(f.address, signature, f.message, network))
 
         if (f.compressed) {
-          var compressedSignature = new Buffer(f.compressed.signature, 'base64')
+          var compressedSignature = Buffer.from(f.compressed.signature, 'base64')
 
           assert.ok(Message.verify(f.compressed.address, compressedSignature, f.message, network))
         }
@@ -47,7 +47,7 @@ describe('Message', function() {
 
     fixtures.invalid.verify.forEach(function(f) {
       it(f.description, function() {
-        var signature = new Buffer(f.signature, 'base64')
+        var signature = Buffer.from(f.signature, 'base64')
         assert.ok(!Message.verify(f.address, signature, f.message))
       })
     })

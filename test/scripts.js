@@ -49,7 +49,7 @@ describe('Scripts', function() {
 
       describe('input script', function() {
         it('is generated correctly for ' + f.pubKey, function() {
-          var signature = new Buffer(f.signature, 'hex')
+          var signature = Buffer.from(f.signature, 'hex')
 
           var scriptSig = scripts.pubKeyInput(signature)
           assert.equal(scriptSig.toASM(), f.scriptSig)
@@ -76,7 +76,7 @@ describe('Scripts', function() {
 
       describe('input script', function() {
         it('is generated correctly for ' + address, function() {
-          var signature = new Buffer(f.signature, 'hex')
+          var signature = Buffer.from(f.signature, 'hex')
 
           var scriptSig = scripts.pubKeyHashInput(signature, pubKey)
           assert.equal(scriptSig.toASM(), f.scriptSig)
@@ -102,7 +102,7 @@ describe('Scripts', function() {
       describe('input script', function() {
         it('is generated correctly for ' + f.scriptPubKey, function() {
           var signatures = f.signatures.map(function(signature) {
-            return new Buffer(signature, 'hex')
+            return Buffer.from(signature, 'hex')
           })
 
           var scriptSig = scripts.multisigInput(signatures)
@@ -133,7 +133,7 @@ describe('Scripts', function() {
         describe('input script', function() {
           it('throws on ' + f.exception, function() {
             var signatures = f.signatures.map(function(signature) {
-              return new Buffer(signature, 'hex')
+              return Buffer.from(signature, 'hex')
             })
 
             assert.throws(function() {

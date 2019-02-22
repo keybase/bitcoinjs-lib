@@ -23,7 +23,7 @@ describe('ECSignature', function() {
   describe('parseCompact', function() {
     fixtures.valid.forEach(function(f) {
       it('imports ' + f.compact.hex + ' correctly', function() {
-        var buffer = new Buffer(f.compact.hex, 'hex')
+        var buffer = Buffer.from(f.compact.hex, 'hex')
         var parsed = ECSignature.parseCompact(buffer)
 
         assert.equal(parsed.compressed, f.compact.compressed)
@@ -35,7 +35,7 @@ describe('ECSignature', function() {
 
     fixtures.invalid.compact.forEach(function(f) {
       it('throws on ' + f.hex, function() {
-        var buffer = new Buffer(f.hex, 'hex')
+        var buffer = Buffer.from(f.hex, 'hex')
 
         assert.throws(function() {
           ECSignature.parseCompact(buffer)
@@ -61,7 +61,7 @@ describe('ECSignature', function() {
   describe('fromDER', function() {
     fixtures.valid.forEach(function(f) {
       it('imports ' + f.DER + ' correctly', function() {
-        var buffer = new Buffer(f.DER, 'hex')
+        var buffer = Buffer.from(f.DER, 'hex')
         var signature = ECSignature.fromDER(buffer)
 
         assert.equal(signature.r.toString(), f.signature.r)
@@ -71,7 +71,7 @@ describe('ECSignature', function() {
 
     fixtures.invalid.DER.forEach(function(f) {
       it('throws on ' + f.hex, function() {
-        var buffer = new Buffer(f.hex, 'hex')
+        var buffer = Buffer.from(f.hex, 'hex')
 
         assert.throws(function() {
           ECSignature.fromDER(buffer)
@@ -97,7 +97,7 @@ describe('ECSignature', function() {
   describe('parseScriptSignature', function() {
     fixtures.valid.forEach(function(f) {
       it('imports ' + f.scriptSignature.hex + ' correctly', function() {
-        var buffer = new Buffer(f.scriptSignature.hex, 'hex')
+        var buffer = Buffer.from(f.scriptSignature.hex, 'hex')
         var parsed = ECSignature.parseScriptSignature(buffer)
 
         assert.equal(parsed.signature.r.toString(), f.signature.r)
@@ -108,7 +108,7 @@ describe('ECSignature', function() {
 
     fixtures.invalid.DER.forEach(function(f) {
       it('throws on ' + f.hex, function() {
-        var buffer = new Buffer(f.hex + '01', 'hex')
+        var buffer = Buffer.from(f.hex + '01', 'hex')
 
         assert.throws(function() {
           ECSignature.parseScriptSignature(buffer)

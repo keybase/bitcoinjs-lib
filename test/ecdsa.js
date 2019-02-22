@@ -33,7 +33,7 @@ describe('ecdsa', function() {
         .onCall(2).returns(new BigInteger('42'))
 
       var d = new BigInteger('1')
-      var h1 = new Buffer(32)
+      var h1 = Buffer.alloc(32)
 
       var k = ecdsa.deterministicGenerateK(curve, h1, d)
 
@@ -62,7 +62,7 @@ describe('ecdsa', function() {
       var hash = message.magicHash('1111', networks.bitcoin)
       var e = BigInteger.fromBuffer(hash)
 
-      var signatureBuffer = new Buffer('INcvXVVEFyIfHLbDX+xoxlKFn3Wzj9g0UbhObXdMq+YMKC252o5RHFr0/cKdQe1WsBLUBi4morhgZ77obDJVuV0=', 'base64')
+      var signatureBuffer = Buffer.from('INcvXVVEFyIfHLbDX+xoxlKFn3Wzj9g0UbhObXdMq+YMKC252o5RHFr0/cKdQe1WsBLUBi4morhgZ77obDJVuV0=', 'base64')
       var signature = ECSignature.parseCompact(signatureBuffer).signature
       var points = [
         '03e3a8c44a8bf712f1fbacee274fb19c0239b1a9e877eff0075ea335f2be8ff380',
